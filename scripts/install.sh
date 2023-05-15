@@ -122,7 +122,7 @@ sed -i "s/#include <TSystem.h>/#include <TSystem.h>\n#include <TObjString.h>/g" 
 # Get CMSSW
 export SCRAM_ARCH=slc7_amd64_gcc11
 checkArch
-CMSREL=CMSSW_13_0_3
+CMSREL=CMSSW_12_6_4
 eval `cmsrel ${CMSREL}`
 cd ${CMSREL}/src
 sed -i 's/CHECK_PRIVATE_HEADERS="1"/CHECK_PRIVATE_HEADERS="0"/g' $CMSSW_BASE/config/Self.xml
@@ -170,7 +170,7 @@ time scram b $MAKEFLAGS
 
 # Get the UHH2 repo & JEC,JER files
 cd $CMSSW_BASE/src
-time git clone -b Run3_124X_v1 https://github.com/UHH2/UHH2.git
+time git clone -b Run3_126X_v1 https://github.com/UHH2/UHH2.git
 cd UHH2
 time git clone https://github.com/cms-jet/JECDatabase.git
 time git clone https://github.com/cms-jet/JRDatabase.git
