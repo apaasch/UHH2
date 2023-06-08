@@ -71,7 +71,15 @@ def get_year(dataset):
     and will raise exceptions if it can't find a UL-typical year
     """
     _,primary_ds_name,processed_ds_name,data_tier_name = tuple(dataset.split('/'))
-    year_string='Run3'
+    year_string = ''
+    
+    year = re.search(r'Run20(22|23)',processed_ds_name)
+
+    if(year):
+        year_string += year.group(0).replace('Run','')
+    else:
+        raise BaseException('Could not extract year from DAS string: %s'%dataset)
+
     return year_string
 
 def get_ntuplewriter(dataset, jetConstituents=False):

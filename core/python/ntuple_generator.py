@@ -38,7 +38,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
     import FWCore.ParameterSet.Config as cms
 
     year = str(year)  # sanitise string
-    acceptable_years = ["2022"]
+    acceptable_years = ["2022", "2023"]
     if year not in acceptable_years:
         raise ValueError("year argument in generate_process() should be one of: %s. You provided: %s" % (acceptable_years, year))
 
@@ -48,7 +48,7 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
     # define our Process object
     # eras are needed for correct b-tagging
     from Configuration.StandardSequences.Eras import eras
-    if year == "2022":
+    if year == "2022" or year=="2023":
         process = cms.Process("USER", eras.Run3)
     else:
         raise RuntimeError("Cannot setup process for this year, may need to add a new entry.")
@@ -166,6 +166,11 @@ def generate_process(year, useData=True, isDebug=False, fatjet_ptmin=120.):
     global_tags = {
         "2022": {
             "data": "124X_dataRun3_Prompt_v4",
+            "mc": "124X_mcRun3_2022_realistic_v11",
+        },
+        "2023": {
+            "data": "130X_dataRun3_Prompt_v3",
+            # TODO: Not available yet! See here later https://cms-conddb.cern.ch/cmsDbBrowser/search/Prod/130X_mcRun3_2023
             "mc": "124X_mcRun3_2022_realistic_v11",
         }
     }
