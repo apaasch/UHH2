@@ -122,7 +122,7 @@ sed -i "s/#include <TSystem.h>/#include <TSystem.h>\n#include <TObjString.h>/g" 
 # Get CMSSW
 export SCRAM_ARCH=slc7_amd64_gcc11
 checkArch
-CMSREL=CMSSW_13_0_3
+CMSREL=CMSSW_13_0_7
 eval `cmsrel ${CMSREL}`
 cd ${CMSREL}/src
 sed -i 's/CHECK_PRIVATE_HEADERS="1"/CHECK_PRIVATE_HEADERS="0"/g' $CMSSW_BASE/config/Self.xml
