@@ -129,7 +129,7 @@ const std::map<std::string, std::map<std::string, std::string> > JERFiles::jecRu
     {"F", "A"},
     {"G", "A"}
   }},
-  {"Winter23Run3", {
+  {"Winter23Prompt23", {
     {"B", "A"},
     {"C", "A"}
   }},
@@ -145,7 +145,10 @@ const std::string JERFiles::JECPathStringDATA(const std::string & tag,
   std::string campaign = tag.substr(0, tag.find("_"));
   std::string newRunName = JERFiles::jecRunMap.at(campaign).at(runName);
   // in 2018, for UL, and for Run3  they use "_RunX" instead of just "X"
-  if (tag.find("18") != std::string::npos || tag.find("UL") != std::string::npos || tag.find("Run3") != std::string::npos ) {
+  if (tag.find("18") != std::string::npos || 
+    tag.find("UL") != std::string::npos || 
+    tag.find("Run3") != std::string::npos ||
+    tag.find("Prompt23") != std::string::npos ) {
     newRunName = "_Run" + newRunName;
   }
 

@@ -338,6 +338,18 @@ bool JetPFID::operator()(const Jet & jet, const Event & ev) const{
       }
     }
   }
+  else if (ev.year.find("2022") != string::npos || ev.year.find("2023") != string::npos){
+    switch(m_working_point){
+        case WP_TIGHT_PUPPI:
+        return tightIDRun3_PUPPI(jet);
+        case WP_TIGHT_LEPVETO_PUPPI:
+        return tightLepVetoIDUL1718_PUPPI(jet);
+        case WP_TIGHT_LEPVETO:
+        throw invalid_argument("In UL, the LepVeto JetPFID is not the same for CHS and PUPPI. Please specify either CHS or PUPPI working point.");
+        default:
+        throw invalid_argument("invalid working point passed to JetPFID");
+      }
+  }
   else if (ev.year.find("2016") != string::npos){
     switch(m_working_point){
       case WP_LOOSE_CHS:
@@ -478,6 +490,30 @@ bool JetPFID::tightIDUL1718_PUPPI(const Jet & jet) const{
   && jet.neutralEmEnergyFraction()<0.90
   && jet.numberOfDaughters()>1
   && jet.chargedHadronEnergyFraction()>0
+  && jet.chargedMultiplicity()>0) return true;
+
+  if(fabs(jet.eta())>2.6 && fabs(jet.eta())<=2.7
+  && jet.neutralHadronEnergyFraction()<0.90
+  && jet.neutralEmEnergyFraction()<0.99) return true;
+
+  if(fabs(jet.eta())>2.7 && fabs(jet.eta())<=3.0
+  && jet.neutralHadronEnergyFraction()<0.9999) return true;
+
+  if(fabs(jet.eta())>3.0 && fabs(jet.eta())<=5.0
+  && jet.neutralEmEnergyFraction()<0.9
+  && jet.neutralPuppiMultiplicity()>2) return true;
+
+  if(fabs(jet.eta())>5.0) return true; // not sure if anyone will ever use these jets but, according to the reference link above, they are not explicitly vetoed
+
+  return false;
+}
+
+bool JetPFID::tightIDRun3_PUPPI(const Jet & jet) const{
+  if(fabs(jet.eta())<=2.6
+  && jet.neutralHadronEnergyFraction()<0.90
+  && jet.neutralEmEnergyFraction()<0.90
+  && jet.numberOfDaughters()>1
+  && jet.chargedHadronEnergyFraction()>0.01
   && jet.chargedMultiplicity()>0) return true;
 
   if(fabs(jet.eta())>2.6 && fabs(jet.eta())<=2.7
@@ -787,8 +823,28 @@ HotZoneVetoId::HotZoneVetoId() {
 
 
 bool HotZoneVetoId::operator()(const Jet &jet, const Event &ev) const{
-  if (h2HotExcl.find(ev.year) == h2HotExcl.end()) throw std::runtime_error("In HotZoneVetoId: "+ev.year+" not found.");
-  for (const auto& h : h2HotExcl.at(ev.year)) {
+  string key_map = ev.year;
+  bool is22 = key_map.find("22") != std::string::npos;
+  bool is23 = key_map.find("23") != std::string::npos;
+  if ( is22 || is23 ){
+    // TODO More elegent way
+    // Get Run
+    string run = "";
+    auto foundYear = run_number_map.find(ev.year);
+    for (const auto & dic : foundYear->second) {
+      if (ev.run >= dic.second.first && ev.run <= dic.second.second) {
+        run = dic.first;
+      }
+    }
+    // Hot Zones in Run 3 are not named by years, but by run
+    key_map = "Run3_CD";
+    if (is22){
+      if(run.find("E")!= std::string::npos||run.find("F")!= std::string::npos||run.find("G")!= std::string::npos) key_map="Run3_E";
+    }
+  }
+
+  if (h2HotExcl.find(key_map) == h2HotExcl.end()) throw std::runtime_error("In HotZoneVetoId: "+key_map+" not found.");
+  for (const auto& h : h2HotExcl.at(key_map)) {
     if (h.second->GetBinContent(h.second->FindBin(jet.eta(),jet.phi())) > 0) return false;
   }
   return true;

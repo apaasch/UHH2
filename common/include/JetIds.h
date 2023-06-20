@@ -120,6 +120,12 @@ private:
   bool tightID2018_PUPPI(const Jet & jet) const;
   bool tightLepVetoID2018_CHS(const Jet & jet) const;
   bool tightLepVetoID2018_PUPPI(const Jet & jet) const;
+
+  //2022 taken from https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13p6TeV
+  // bool tightID2022_CHS(const Jet & jet) const;
+  bool tightIDRun3_PUPPI(const Jet & jet) const;
+  // bool tightLepVetoID2022_CHS(const Jet & jet) const;
+  // bool tightLepVetoID2022_PUPPI(const Jet & jet) const;
 };
 
 /**
@@ -162,6 +168,18 @@ private:
     { "UL18", {
       { "fname",  {"JECDatabase/jet_veto_maps/Summer19UL18_V1/hotjets-UL18.root"}},
       { "hname",  {"h2hot_ul18_plus_hem1516_and_hbp2m1"}},
+    }},
+    { "UL18", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Summer19UL18_V1/hotjets-UL18.root"}},
+      { "hname",  {"h2hot_ul18_plus_hem1516_and_hbp2m1"}},
+    }},
+    { "Run3_E", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Winter22Run3/Winter22Run3_RunE_v1.root"}},
+      { "hname",  {"jetvetomap"}},
+    }},
+    { "Run3_CD", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Winter22Run3/Winter22Run3_RunCD_v1.root"}},
+      { "hname",  {"jetvetomap"}},
     }},
   };
 

@@ -159,6 +159,7 @@ const std::vector<std::string> runPeriodsUL16preVFP = {"B", "C", "D", "E", "F"};
 const std::vector<std::string> runPeriodsUL16postVFP = {"F", "G", "H"};
 
 const std::vector<std::string> runPeriods2022 = {"B", "C", "D", "E", "F", "G"};
+const std::vector<std::string> runPeriods2023 = {"B", "C"};
 
 const std::vector<std::string> year2runPeriods(const std::string& year);
 
@@ -205,15 +206,23 @@ const std::unordered_map<std::string, std::map<std::string, std::pair<int, int>>
         { "H", std::pair(-1, -1) },
     }},
     { "2022", {
+        { "A", std::pair(-1, -1) },
         { "B", std::pair(355100, 355769) },
         { "C", std::pair(355862, 357482) },
         { "D", std::pair(357538, 359021) },
         { "E", std::pair(359022, 360331) },
         { "F", std::pair(360332, 362180) },
         { "G", std::pair(362350, 362760) },
+        { "H", std::pair(-1, -1) },
     }},
     { "2023", {
+        { "A", std::pair(-1, -1) },
         { "B", std::pair(366365, 367079) },
         { "C", std::pair(367080, 367763) },
+        { "D", std::pair(-1, -1) },
+        { "E", std::pair(-1, -1) },
+        { "F", std::pair(-1, -1) },
+        { "G", std::pair(-1, -1) },
+        { "H", std::pair(-1, -1) },
     }},
 };
