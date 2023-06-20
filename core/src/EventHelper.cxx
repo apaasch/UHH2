@@ -160,9 +160,9 @@ void EventHelper::event_read(){
 	}
         if(trigger){
             event->get_triggerResults() = &event->get(h_triggerResults);
-	    event->get_triggerPrescales() = &event->get(h_triggerPrescales);
-	    event->get_triggerPrescalesL1min() = &event->get(h_triggerPrescalesL1min);
-	    event->get_triggerPrescalesL1max() = &event->get(h_triggerPrescalesL1max);
+	          event->get_triggerPrescales() = &event->get(h_triggerPrescales);
+	          event->get_triggerPrescalesL1min() = &event->get(h_triggerPrescalesL1min);
+	          event->get_triggerPrescalesL1max() = &event->get(h_triggerPrescalesL1max);
         }
 	if(L1EG_seeds){
 	  event->L1EG_seeds =  &event->get(h_L1EG_seeds);
