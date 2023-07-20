@@ -148,6 +148,7 @@ const std::string JERFiles::JECPathStringDATA(const std::string & tag,
   if (tag.find("18") != std::string::npos || 
     tag.find("UL") != std::string::npos || 
     tag.find("Run3") != std::string::npos ||
+    tag.find("Prompt22") != std::string::npos ||
     tag.find("Prompt23") != std::string::npos ) {
     newRunName = "_Run" + newRunName;
   }

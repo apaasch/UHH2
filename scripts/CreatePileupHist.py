@@ -23,6 +23,7 @@ def makeLumiHist(infile, outfile):
 if __name__ == "__main__":
 
     jsonPath = "/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/"
+    jsonPath22 = "/nfs/dust/cms/user/paaschal/WorkingArea/JERCProtoLab/macros/lumi_PU/InputFiles/"
     normTagPath = "/cvmfs/cms-bril.cern.ch/cms-lumi-pog/Normtags/"
     pileupFile = "/13TeV/PileUp/pileup_latest.txt"
 
