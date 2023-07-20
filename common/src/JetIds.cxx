@@ -341,11 +341,11 @@ bool JetPFID::operator()(const Jet & jet, const Event & ev) const{
   else if (ev.year.find("2022") != string::npos || ev.year.find("2023") != string::npos){
     switch(m_working_point){
         case WP_TIGHT_PUPPI:
-        return tightIDRun3_PUPPI(jet);
+        return tightID2022_PUPPI(jet);
         case WP_TIGHT_LEPVETO_PUPPI:
         return tightLepVetoIDUL1718_PUPPI(jet);
         case WP_TIGHT_LEPVETO:
-        throw invalid_argument("In UL, the LepVeto JetPFID is not the same for CHS and PUPPI. Please specify either CHS or PUPPI working point.");
+        throw invalid_argument("In 2022, the LepVeto JetPFID is not implemented yet.");
         default:
         throw invalid_argument("invalid working point passed to JetPFID");
       }
@@ -508,9 +508,9 @@ bool JetPFID::tightIDUL1718_PUPPI(const Jet & jet) const{
   return false;
 }
 
-bool JetPFID::tightIDRun3_PUPPI(const Jet & jet) const{
+bool JetPFID::tightID2022_PUPPI(const Jet & jet) const{
   if(fabs(jet.eta())<=2.6
-  && jet.neutralHadronEnergyFraction()<0.90
+  && jet.neutralHadronEnergyFraction()<0.99
   && jet.neutralEmEnergyFraction()<0.90
   && jet.numberOfDaughters()>1
   && jet.chargedHadronEnergyFraction()>0.01
@@ -525,7 +525,7 @@ bool JetPFID::tightIDRun3_PUPPI(const Jet & jet) const{
 
   if(fabs(jet.eta())>3.0 && fabs(jet.eta())<=5.0
   && jet.neutralEmEnergyFraction()<0.9
-  && jet.neutralPuppiMultiplicity()>2) return true;
+  && jet.neutralMultiplicity()>=2) return true; // neutralPuppiMultiplicity
 
   if(fabs(jet.eta())>5.0) return true; // not sure if anyone will ever use these jets but, according to the reference link above, they are not explicitly vetoed
 

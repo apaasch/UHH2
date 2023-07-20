@@ -123,7 +123,7 @@ private:
 
   //2022 taken from https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13p6TeV
   // bool tightID2022_CHS(const Jet & jet) const;
-  bool tightIDRun3_PUPPI(const Jet & jet) const;
+  bool tightID2022_PUPPI(const Jet & jet) const;
   // bool tightLepVetoID2022_CHS(const Jet & jet) const;
   // bool tightLepVetoID2022_PUPPI(const Jet & jet) const;
 };
