@@ -158,7 +158,9 @@ const std::vector<std::string> runPeriods2018 = {"A", "B", "C", "D"};
 const std::vector<std::string> runPeriodsUL16preVFP = {"B", "C", "D", "E", "F"};
 const std::vector<std::string> runPeriodsUL16postVFP = {"F", "G", "H"};
 
-const std::vector<std::string> runPeriods2022 = {"B", "C", "D", "E", "F", "G"};
+const std::vector<std::string> runPeriods2022       = {"B", "C", "D", "E", "F", "G"};
+const std::vector<std::string> runPeriods2022preEE  = {"B", "C", "D", "E"};
+const std::vector<std::string> runPeriods2022postEE = {"F", "G"};
 const std::vector<std::string> runPeriods2023 = {"B", "C"};
 
 const std::vector<std::string> year2runPeriods(const std::string& year);
@@ -218,7 +220,7 @@ const std::unordered_map<std::string, std::map<std::string, std::pair<int, int>>
     { "2023", {
         { "A", std::pair(-1, -1) },
         { "B", std::pair(366365, 367079) },
-        { "C", std::pair(367080, 367763) },
+        { "C", std::pair(367080, 369788) },
         { "D", std::pair(-1, -1) },
         { "E", std::pair(-1, -1) },
         { "F", std::pair(-1, -1) },
