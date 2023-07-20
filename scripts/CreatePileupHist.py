@@ -53,6 +53,13 @@ if __name__ == "__main__":
                          "PileupMC":    "SimGeneral.MixingModule.mix_2018_25ns_UltraLegacy_PoissonOOTPU_cfi",
                          "HN":          "https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/3526.html ",
                         },
+        "2022":         {"JSONpath":    jsonPath22+"Run3/",
+                         "JSON":        "Cert_Collisions2022_355794_362180_Golden_allruns.json",
+                         "normtag":     normTagPath+"normtag_BRIL.json", # correct ? 
+                         "Pileup":      jsonPath22+"pileup_latest_2022.txt",
+                         "PileupMC":    "SimGeneral.MixingModule.Run3_2022_LHC_Simulation_10h_2h_cfi",
+                         "HN":          "https://hypernews.cern.ch/HyperNews/CMS/get/physics-validation/3526.html ", # wrong!
+                        },
     }
 
     for year in info:
