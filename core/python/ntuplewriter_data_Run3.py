@@ -13,7 +13,8 @@ process = generate_process(year="2022", useData=True)
 
 # Please do not commit changes to source filenames - used for consistency testing
 process.source.fileNames = cms.untracked.vstring([
-'/store/data/Run2022D/JetMET/MINIAOD/PromptReco-v2/000/357/734/00000/014505b6-85f9-4661-a211-85ce48c390d4.root',
+# '/store/data/Run2022D/JetMET/MINIAOD/PromptReco-v2/000/357/734/00000/014505b6-85f9-4661-a211-85ce48c390d4.root',
+'/store/data/Run2022D/JetMET/MINIAOD/22Sep2023-v1/2550000/000a7361-c7e5-4a7e-93e1-bab6329edb0a.root',
 ])
 
 # Do this after setting process.source.fileNames, since we want the ability to override it on the commandline
