@@ -107,6 +107,8 @@ enum class Year {
     isUL17,
     isUL18,
     is2022,
+    is2022preEE,
+    is2022postEE,
     is2023,
 };
 
@@ -122,6 +124,8 @@ const std::map<Year, std::string> year_str_map = {
     {Year::isUL17,          "UL17"},
     {Year::isUL18,          "UL18"},
     {Year::is2022,          "2022"},
+    {Year::is2022preEE,     "2022preEE"},
+    {Year::is2022postEE,    "2022postEE"},
     {Year::is2023,          "2023"},
 };
 
@@ -136,6 +140,8 @@ const std::map<Year, std::string> year_str_map_simple = {
     {Year::isUL17,          "2017"},
     {Year::isUL18,          "2018"},
     {Year::is2022,          "2022"},
+    {Year::is2022preEE,     "2022"},
+    {Year::is2022postEE,    "2022"},
     {Year::is2023,          "2023"},
 };
 // TODO: inverse map?
@@ -159,8 +165,8 @@ const std::vector<std::string> runPeriodsUL16preVFP = {"B", "C", "D", "E", "F"};
 const std::vector<std::string> runPeriodsUL16postVFP = {"F", "G", "H"};
 
 const std::vector<std::string> runPeriods2022       = {"B", "C", "D", "E", "F", "G"};
-const std::vector<std::string> runPeriods2022preEE  = {"B", "C", "D", "E"};
-const std::vector<std::string> runPeriods2022postEE = {"F", "G"};
+const std::vector<std::string> runPeriods2022preEE  = {"B", "C", "D"};
+const std::vector<std::string> runPeriods2022postEE = {"E", "F", "G"};
 const std::vector<std::string> runPeriods2023 = {"B", "C"};
 
 const std::vector<std::string> year2runPeriods(const std::string& year);
