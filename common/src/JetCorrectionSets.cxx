@@ -122,6 +122,7 @@ const std::map<std::string, std::map<std::string, std::string> > JERFiles::jecRu
     {"H", "FGH"}
   }},
   {"Summer22EEPrompt22", {
+    {"E", "E"},
     {"F", "F"},
     {"G", "G"}
   }},
@@ -129,7 +130,6 @@ const std::map<std::string, std::map<std::string, std::string> > JERFiles::jecRu
     {"B", "CD"},
     {"C", "CD"},
     {"D", "CD"},
-    {"E", "CD"}
   }},
   {"Winter22Run3", {
     {"C", "C"},
