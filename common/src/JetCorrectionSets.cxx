@@ -1,5 +1,6 @@
 #include "UHH2/common/include/JetCorrectionSets.h"
 #include <string>
+#include <iostream>
 
 // Getting path of a JER file from JRDatabase (e.g. SF, PtResolution, etc) for a given tag and jetCollection
 const std::string JERFiles::JERPathStringMC(const std::string & tag,
@@ -130,6 +131,11 @@ const std::map<std::string, std::map<std::string, std::string> > JERFiles::jecRu
     {"B", "CD"},
     {"C", "CD"},
     {"D", "CD"},
+  }},
+  {"Summer22EE", {
+    {"E", "E"},
+    {"F", "F"},
+    {"G", "G"},
   }},
   {"Winter22Run3", {
     {"C", "C"},

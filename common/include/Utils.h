@@ -164,10 +164,10 @@ const std::vector<std::string> runPeriods2018 = {"A", "B", "C", "D"};
 const std::vector<std::string> runPeriodsUL16preVFP = {"B", "C", "D", "E", "F"};
 const std::vector<std::string> runPeriodsUL16postVFP = {"F", "G", "H"};
 
-const std::vector<std::string> runPeriods2022       = {"B", "C", "D", "E", "F", "G"};
-const std::vector<std::string> runPeriods2022preEE  = {"B", "C", "D"};
+const std::vector<std::string> runPeriods2022       = {"C", "D", "E", "F", "G"};
+const std::vector<std::string> runPeriods2022preEE  = {"C", "D"};
 const std::vector<std::string> runPeriods2022postEE = {"E", "F", "G"};
-const std::vector<std::string> runPeriods2023 = {"B", "C"};
+const std::vector<std::string> runPeriods2023       = {"B", "C"};
 
 const std::vector<std::string> year2runPeriods(const std::string& year);
 
