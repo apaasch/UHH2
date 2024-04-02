@@ -110,6 +110,8 @@ enum class Year {
     is2022preEE,
     is2022postEE,
     is2023,
+    is2023preBPix,
+    is2023postBPix,
 };
 
 /* Map from Year to string */
@@ -127,6 +129,8 @@ const std::map<Year, std::string> year_str_map = {
     {Year::is2022preEE,     "2022preEE"},
     {Year::is2022postEE,    "2022postEE"},
     {Year::is2023,          "2023"},
+    {Year::is2022preEE,     "2023preBPix"},
+    {Year::is2022postEE,    "2023postBPix"},
 };
 
 const std::map<Year, std::string> year_str_map_simple = {
@@ -143,8 +147,9 @@ const std::map<Year, std::string> year_str_map_simple = {
     {Year::is2022preEE,     "2022"},
     {Year::is2022postEE,    "2022"},
     {Year::is2023,          "2023"},
-};
-// TODO: inverse map?
+    {Year::is2023preBPix,   "2023"},
+    {Year::is2023postBPix,  "2023"},
+};// TODO: inverse map?
 
 /* Get Year enum from dataset_version in XML config */
 Year extract_year(const uhh2::Context & ctx);
@@ -167,7 +172,9 @@ const std::vector<std::string> runPeriodsUL16postVFP = {"F", "G", "H"};
 const std::vector<std::string> runPeriods2022       = {"C", "D", "E", "F", "G"};
 const std::vector<std::string> runPeriods2022preEE  = {"C", "D"};
 const std::vector<std::string> runPeriods2022postEE = {"E", "F", "G"};
-const std::vector<std::string> runPeriods2023       = {"B", "C"};
+const std::vector<std::string> runPeriods2023       = {"C", "D"};
+const std::vector<std::string> runPeriods2023preBPix  = {"Cv123", "Cv4"};
+const std::vector<std::string> runPeriods2023postBPix = {"D"};
 
 const std::vector<std::string> year2runPeriods(const std::string& year);
 
@@ -223,11 +230,13 @@ const std::unordered_map<std::string, std::map<std::string, std::pair<int, int>>
         { "G", std::pair(362350, 362760) },
         { "H", std::pair(-1, -1) },
     }},
+    // Run numbers from https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis#2023_Era_definition
     { "2023", {
         { "A", std::pair(-1, -1) },
         { "B", std::pair(366365, 367079) },
-        { "C", std::pair(367080, 369788) },
-        { "D", std::pair(-1, -1) },
+        { "Cv123", std::pair(367095, 367763) },
+        { "Cv4", std::pair(367765, 368823) }, // 369802
+        { "D", std::pair(369803, 370790) },
         { "E", std::pair(-1, -1) },
         { "F", std::pair(-1, -1) },
         { "G", std::pair(-1, -1) },

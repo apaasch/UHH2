@@ -824,22 +824,6 @@ HotZoneVetoId::HotZoneVetoId() {
 
 bool HotZoneVetoId::operator()(const Jet &jet, const Event &ev) const{
   string key_map = ev.year;
-  bool is22 = key_map.find("22") != std::string::npos;
-  bool is23 = key_map.find("23") != std::string::npos;
-  if ( is22 || is23 ){
-    // TODO More elegent way
-    // Get Run
-    // string run = "";
-    // auto foundYear = run_number_map.find(ev.year);
-    // for (const auto & dic : foundYear->second) {
-    //   if (ev.run >= dic.second.first && ev.run <= dic.second.second) {
-    //     run = dic.first;
-    //   }
-    // }
-    // Hot Zones in Run 3 are not named by years, but by run
-    key_map = "Run3_E";
-  }
-
   if (h2HotExcl.find(key_map) == h2HotExcl.end()) throw std::runtime_error("In HotZoneVetoId: "+key_map+" not found.");
   for (const auto& h : h2HotExcl.at(key_map)) {
     if (h.second->GetBinContent(h.second->FindBin(jet.eta(),jet.phi())) > 0) return false;

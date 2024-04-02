@@ -145,6 +145,13 @@ const std::map<std::string, std::map<std::string, std::string> > JERFiles::jecRu
     {"B", "A"},
     {"C", "A"}
   }},
+  {"Summer23Prompt23", {
+    {"Cv123", "Cv123"},
+    {"Cv4", "Cv4"}
+  }},
+  {"Summer23BPixPrompt23", {
+    {"D", "D"}
+  }},
 };
 const std::string JERFiles::JECPathStringDATA(const std::string & tag,
                                               const std::string & ver,
@@ -162,6 +169,7 @@ const std::string JERFiles::JECPathStringDATA(const std::string & tag,
     tag.find("Run3") != std::string::npos ||
     tag.find("Prompt22") != std::string::npos ||
     tag.find("Summer22") != std::string::npos ||
+    tag.find("Summer23") != std::string::npos ||
     tag.find("Prompt23") != std::string::npos ) {
     newRunName = "_Run" + newRunName;
   }

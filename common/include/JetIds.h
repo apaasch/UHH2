@@ -173,8 +173,20 @@ private:
       { "fname",  {"JECDatabase/jet_veto_maps/Summer19UL18_V1/hotjets-UL18.root"}},
       { "hname",  {"h2hot_ul18_plus_hem1516_and_hbp2m1"}},
     }},
-    { "Run3_E", {
-      { "fname",  {"JECDatabase/jet_veto_maps/Winter22Run3/Winter22Run3_RunE_v1.root"}},
+    { "2022preEE", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Summer22_23Sep2023/Summer22_23Sep2023_RunCD_v1.root"}},
+      { "hname",  {"jetvetomap"}},
+    }},
+    { "2022postEE", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Summer22EE_23Sep2023/Summer22EE_23Sep2023_RunEFG_v1.root"}},
+      { "hname",  {"jetvetomap"}},
+    }},
+    { "2023preBPix", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Summer23Prompt23/Summer23Prompt23_RunC_v1.root"}},
+      { "hname",  {"jetvetomap"}},
+    }},
+    { "2023postBPix", {
+      { "fname",  {"JECDatabase/jet_veto_maps/Summer23BPixPrompt23/Summer23BPixPrompt23_RunD_v1.root"}},
       { "hname",  {"jetvetomap"}},
     }},
     { "Run3_CD", {
