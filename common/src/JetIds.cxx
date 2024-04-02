@@ -339,6 +339,7 @@ bool JetPFID::operator()(const Jet & jet, const Event & ev) const{
     }
   }
   else if (ev.year.find("2022") != string::npos || ev.year.find("2023") != string::npos){
+    // https://twiki.cern.ch/twiki/bin/view/CMS/JetID13p6TeV
     switch(m_working_point){
         case WP_TIGHT_PUPPI:
         return tightID2022_PUPPI(jet);
@@ -524,7 +525,7 @@ bool JetPFID::tightID2022_PUPPI(const Jet & jet) const{
   && jet.neutralHadronEnergyFraction()<0.9999) return true;
 
   if(fabs(jet.eta())>3.0 && fabs(jet.eta())<=5.0
-  && jet.neutralEmEnergyFraction()<0.9
+  && jet.neutralEmEnergyFraction()<0.4
   && jet.neutralMultiplicity()>=2) return true; // neutralPuppiMultiplicity
 
   if(fabs(jet.eta())>5.0) return true; // not sure if anyone will ever use these jets but, according to the reference link above, they are not explicitly vetoed
