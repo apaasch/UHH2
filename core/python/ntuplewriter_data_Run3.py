@@ -22,5 +22,5 @@ process.source.fileNames = cms.untracked.vstring([
 options = setup_opts()
 parse_apply_opts(process, options)
 
-# with open('pydump_data_Run3.py', 'w') as f:
-#     f.write(process.dumpPython())
+with open('pydump_data_Run3.py', 'w') as f:
+    f.write(process.dumpPython())

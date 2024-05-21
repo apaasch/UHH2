@@ -247,7 +247,12 @@ MCScaleVariation::MCScaleVariation(Context & ctx){
   is_wjets = ctx.get("dataset_version").find("WJets") == 0;
   is_qcd_HTbinned = ctx.get("dataset_version").find("QCD_HT") == 0;
   is_alps = ctx.get("dataset_version").find("ALP") == 0;
-  is_azh = ctx.get("dataset_version").find("AZH") == 0;
+  is_azh = (ctx.get("dataset_version").find("AZH") == 0) ||
+           (ctx.get("dataset_version").find("AToZHToLLTTbar") == 0);
+  is_htott_scalar = ctx.get("dataset_version").find("HscalarToTTTo") == 0;
+  is_htott_pseudo = ctx.get("dataset_version").find("HpseudoToTTTo") == 0;
+  is_zprimetott = ctx.get("dataset_version").find("ZPrimeToTT_") == 0;
+  is_tstartstar = ctx.get("dataset_version").find("TstarTstar") != std::string::npos;
 
   if(s_mu_r == "up") {i_mu_r = 1;}
   else if(s_mu_r == "down"){i_mu_r = 2;}
@@ -306,7 +311,7 @@ bool MCScaleVariation::process(Event & event){
 
     // Set handles, written for all relevant cases irrespective of
     // the values of mu_r and mu_f specified in the config file
-    if ( is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh ) {
+    if ( is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott || is_tstartstar ) {
       event.set(h_murmuf_weight_upup_, event.genInfo->systweights().at(20)/event.genInfo->originalXWGTUP());
       event.set(h_murmuf_dyn1_weight_upup_, event.genInfo->systweights().at(21)/event.genInfo->originalXWGTUP());
       event.set(h_murmuf_dyn2_weight_upup_, event.genInfo->systweights().at(22)/event.genInfo->originalXWGTUP());
@@ -517,6 +522,7 @@ bool MCMuonScaleFactor::process_onemuon(uhh2::Event & event, int i) {
 
   const auto & muons = event.get(h_muons_);
   float weight = 1., weight_up = 1., weight_down = 1.;
+  float err_propagation = 0.;
   Muon mu = muons.at(i);
   float eta = fAbsoluteEta ? fabs(mu.eta()) : mu.eta();
   float pt = mu.pt();
@@ -553,11 +559,12 @@ bool MCMuonScaleFactor::process_onemuon(uhh2::Event & event, int i) {
     if(out_of_range) err_tot*=2;
 
     weight      *= w;
-    weight_up   *= w + err_tot;
-    weight_down *= w - err_tot;
+    err_propagation += pow(err_tot/w, 2);
 
   }
 
+  weight_up = weight + sqrt(err_propagation);
+  weight_down = weight - sqrt(err_propagation);
 
   event.set(h_muon_weight_,       weight);
   event.set(h_muon_weight_up_,    weight_up);
@@ -735,6 +742,7 @@ bool MCElecScaleFactor::process(uhh2::Event & event) {
 
   const auto & elecs = event.get(h_elecs_);
   float weight = 1., weight_up = 1., weight_down = 1.;
+  float err_propagation = 0.;
   for (const auto & el : elecs) {
     float eta = fAbsoluteEta ? fabs(el.supercluster_eta()) : el.supercluster_eta();
     float pt = el.pt();
@@ -765,11 +773,13 @@ bool MCElecScaleFactor::process(uhh2::Event & event) {
       if(out_of_range) err_tot*=2;
 
       weight      *= w;
-      weight_up   *= w + err_tot;
-      weight_down *= w - err_tot;
+      err_propagation += pow(err_tot/w, 2);
     }
 
   }
+
+  weight_up = weight + sqrt(err_propagation);
+  weight_down = weight - sqrt(err_propagation);
 
   event.set(h_elec_weight_,       weight);
   event.set(h_elec_weight_up_,    weight_up);
@@ -795,7 +805,8 @@ MCBTagScaleFactor::MCBTagScaleFactor(
   const std::string & measType_bc,
   const std::string & measType_udsg,
   const std::string & xml_config_eff_file,
-  const std::string & weights_name_postfix
+  const std::string & weights_name_postfix,
+  const std::string & sf_version
 ):
   fYear(extract_year(ctx)),
   fBTagID(BTag(algo, wp)),
@@ -842,16 +853,16 @@ MCBTagScaleFactor::MCBTagScaleFactor(
     case BTag::DEEPCSV :
     switch(fYear) {
       case Year::isUL16preVFP :
-      sf_file_path += "wp_deepCSV_106XUL16preVFP_v2.csv";
+      sf_file_path += "UL16preVFP/wp_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL16postVFP :
-      sf_file_path += "wp_deepCSV_106XUL16postVFP_v3.csv";
+      sf_file_path += "UL16postVFP/wp_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL17 :
-      sf_file_path += "wp_deepCSV_106XUL17_v3.csv";
+      sf_file_path += "UL17/wp_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL18 :
-      sf_file_path += "wp_deepCSV_106XUL18_v2.csv";
+      sf_file_path += "UL18/wp_deepCSV_"+sf_version+".csv";
       break;
       default :
       throw invalid_argument("MCBTagScaleFactor: Invalid year");
@@ -860,16 +871,16 @@ MCBTagScaleFactor::MCBTagScaleFactor(
     case BTag::DEEPJET :
     switch(fYear) {
       case Year::isUL16preVFP :
-      sf_file_path += "wp_deepJet_106XUL16preVFP_v2.csv";
+      sf_file_path += "UL16preVFP/wp_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL16postVFP :
-      sf_file_path += "wp_deepJet_106XUL16postVFP_v3.csv";
+      sf_file_path += "UL16postVFP/wp_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL17 :
-      sf_file_path += "wp_deepJet_106XUL17_v3.csv";
+      sf_file_path += "UL17/wp_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL18 :
-      sf_file_path += "wp_deepJet_106XUL18_v2.csv";
+      sf_file_path += "UL18/wp_deepJet_"+sf_version+".csv";
       break;
       default :
       throw invalid_argument("MCBTagScaleFactor: Invalid year");
@@ -1003,7 +1014,8 @@ MCBTagDiscriminantReweighting::MCBTagDiscriminantReweighting(
   BTag::algo algorithm,
   const std::string & jets_handle_name,
   const std::string & weights_name_postfix,
-  const std::string & measType
+  const std::string & measType,
+  const std::string & sf_version
 ):
   fAlgorithm(algorithm),
   fYear(extract_year(ctx)),
@@ -1095,16 +1107,16 @@ MCBTagDiscriminantReweighting::MCBTagDiscriminantReweighting(
     case BTag::DEEPCSV :
     switch(fYear) {
       case Year::isUL16preVFP :
-      sf_file_path += "reshaping_deepCSV_106XUL16preVFP_v2.csv";
+      sf_file_path += "UL16preVFP/reshaping_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL16postVFP :
-      sf_file_path += "reshaping_deepCSV_106XUL16postVFP_v3.csv";
+      sf_file_path += "UL16postVFP/reshaping_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL17 :
-      sf_file_path += "reshaping_deepCSV_106XUL17_v3.csv";
+      sf_file_path += "UL17/reshaping_deepCSV_"+sf_version+".csv";
       break;
       case Year::isUL18 :
-      sf_file_path += "reshaping_deepCSV_106XUL18_v2.csv";
+      sf_file_path += "UL18/reshaping_deepCSV_"+sf_version+".csv";
       break;
       default :
       throw invalid_argument("MCBTagDiscriminantReweighting: Invalid year");
@@ -1113,16 +1125,16 @@ MCBTagDiscriminantReweighting::MCBTagDiscriminantReweighting(
     case BTag::DEEPJET :
     switch(fYear) {
       case Year::isUL16preVFP :
-      sf_file_path += "reshaping_deepJet_106XUL16preVFP_v2.csv";
+      sf_file_path += "UL16preVFP/reshaping_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL16postVFP :
-      sf_file_path += "reshaping_deepJet_106XUL16postVFP_v3.csv";
+      sf_file_path += "UL16postVFP/reshaping_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL17 :
-      sf_file_path += "reshaping_deepJet_106XUL17_v3.csv";
+      sf_file_path += "UL17/reshaping_deepJet_"+sf_version+".csv";
       break;
       case Year::isUL18 :
-      sf_file_path += "reshaping_deepJet_106XUL18_v2.csv";
+      sf_file_path += "UL18/reshaping_deepJet_"+sf_version+".csv";
       break;
       default :
       throw invalid_argument("MCBTagDiscriminantReweighting: Invalid year");
