@@ -82,6 +82,10 @@ class MCScaleVariation: public uhh2::AnalysisModule {
   bool is_qcd_HTbinned;
   bool is_alps;
   bool is_azh;
+  bool is_htott_scalar;
+  bool is_htott_pseudo;
+  bool is_zprimetott;
+  bool is_tstartstar;
   int i_mu_r = 0, i_mu_f = 0;
   void initialise_handles(uhh2::Event & event);
   uhh2::Event::Handle<float> h_murmuf_weight_upup_;
@@ -296,7 +300,8 @@ public:
     const std::string & measType_bc="mujets",
     const std::string & measType_udsg="incl",
     const std::string & xml_config_eff_file="MCBtagEfficiencies",
-    const std::string & weights_name_postfix=""
+    const std::string & weights_name_postfix="",
+    const std::string & sf_version="v1"
   );
   virtual bool process(uhh2::Event & event) override;
 
@@ -403,7 +408,8 @@ public:
     BTag::algo algorithm,
     const std::string & jets_handle_name="jets",
     const std::string & weights_name_postfix="",
-    const std::string & measType="iterativefit"
+    const std::string & measType="iterativefit",
+    const std::string & sf_version="v3"
   );
 
   virtual bool process(uhh2::Event & event) override;
